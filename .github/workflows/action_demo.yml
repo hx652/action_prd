@@ -14,11 +14,14 @@ jobs:
       uses: actions/checkout@v4
     - name: list files
       run: ls -al
-    - name: Setup SSH
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.ACTION_DEMO_PRIVATE }}
-
+    - name: Configure Private Key
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.ACTION_DEMO_PRIVATE }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        echo "StrictHostKeyChecking no" >> ~/.ssh/config
     - name: Push changes
       run: |
         git config --global user.name "Fainic"
