@@ -24,8 +24,4 @@ jobs:
         echo "StrictHostKeyChecking no" >> ~/.ssh/config
     - name: Push changes
       run: |
-        git config --global user.name "Fainic"
-        git config --global user.email "Fainic-XD@outlook.com"
-        git remote add prd git@github.com:hx652/action_prd.git
-        git remote -v
-        git push prd master
+        ssh -T git@github.com
